@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group 'com.ccgautomation'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+archivesBaseName = 'WhoIs'
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.mangoautomation.net/repository/ias-release/" }
+    maven { url "https://repo.spring.io/plugins-release/" }
+}
+
+dependencies {
+    implementation files('lib/BACnet4j.jar')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+//https://stackoverflow.com/questions/4871656/using-gradle-to-build-a-jar-with-dependencies
+jar {
+    manifest {
+        attributes 'Main-Class' : 'com.ccgautomation.WhoIs'
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
