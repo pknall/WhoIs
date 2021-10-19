@@ -83,11 +83,11 @@ public class WhoIs {
                     //LOG.debug("I-AM Received: Adding {} to queue: {}", remoteDevice.toString(), localDevice.getRemoteDevices().size());
 
                     if (ObjectIDs.containsKey(new Long(remoteDevice.getInstanceNumber()))) {
-                        System.out.print("DUPLICATE: ");
+                        System.out.print("DUPLICATE,");
                     }
                     else
                     {
-                        System.out.print("---------: ");
+                        System.out.print("---------,");
                         ObjectIDs.put(new Long(remoteDevice.getInstanceNumber()), remoteDevice.getAddress().toString());
                     }
                     System.out.println(remoteDevice.getInstanceNumber() + ","
@@ -135,7 +135,7 @@ public class WhoIs {
 
                 }
             });
-            localDevice.sendGlobalBroadcast(new WhoIsRequest(0, 5000000));
+            localDevice.sendGlobalBroadcast(new WhoIsRequest(0, 4194302));
 
             Thread.sleep(timeout);
         }
